@@ -1,6 +1,3 @@
-
-
-
 var paddle2 =10,paddle1=10;
 
 var paddle1X = 10,paddle1Height = 110;
@@ -57,6 +54,12 @@ function gotPoses(results)
   }
 }
 
+function preload()
+{
+	ball_touch = loadSound("ball_touch_paddel.wav");
+  missed = loadSound("missed.wav");
+}
+
 function startGame()
 {
   game_status = "start";
@@ -95,7 +98,7 @@ if(game_status == "start") // inside the if condition check if the game_status i
     fill(250,0,0);
     stroke(0,0,250);
     strokeWeight(0.5);
-    paddle1Y = rightWristY; 
+    mouseY = rightWristY; 
     rect(paddle1X,paddle1Y,paddle1,paddle1Height,100);
 
 
@@ -186,7 +189,7 @@ if(pcscore ==4){
     stroke("white");
     textSize(25);
     text("Game Over!",width/2,height/2);
-    text("Reload the page!",width/2,height/2+30)
+    text("Press Restart button to play again!",width/2,height/2+30)
     noLoop();
     pcscore = 0;
  }
@@ -195,6 +198,17 @@ if(pcscore ==4){
    }   
 }
 
+if (ball.y >= paddle1Y&& ball.y <= paddle1Y + paddle1Height) {
+  playSound("ball_touch_paddel.wav");
+  playSound("missed.wav");
+}
+
+function restart()
+{
+  var pcscore = 0;
+  var playerscore = 9;
+  loop();
+}
 
 //width height of canvas speed of ball 
 function models(){
